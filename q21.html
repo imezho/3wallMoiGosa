@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>21번 | 2026 3월 모의고사</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#12121a;--s2:#1a1a26;--border:#2a2a3a;--text:#e0e0ec;--dim:#7c7c96;--bright:#fff;--accent:#6c8aff;--red:#ff6c8a;--green:#6cffa0;--orange:#ffc86c;--purple:#c086ff;--cyan:#6ce8ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased;}
+
+.nav{display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(10,10,15,0.92);backdrop-filter:blur(16px);z-index:100;}
+.nav a{color:var(--accent);text-decoration:none;font-size:13px;font-weight:500;}
+.nav-c{font-size:12px;color:var(--dim);font-family:'JetBrains Mono',monospace;}
+.ct{max-width:820px;margin:0 auto;padding:36px 28px 80px;}
+.qh{display:flex;align-items:center;gap:16px;margin-bottom:32px;}
+.qb{width:54px;height:54px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:600;color:#fff;background:linear-gradient(135deg,#ff6c8a,#ff8a6c);flex-shrink:0;}
+.qt{font-size:22px;font-weight:900;letter-spacing:-0.5px;}
+.qs{font-size:12px;color:var(--red);font-family:'JetBrains Mono',monospace;font-weight:600;margin-top:2px;}
+.sum{padding:18px 22px;background:var(--s2);border-left:3px solid var(--red);border-radius:0 10px 10px 0;margin-bottom:40px;}
+.sum-l{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:4px;font-family:'JetBrains Mono',monospace;}
+.sum-t{font-size:15px;font-weight:700;}
+.sec{font-size:11px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin:44px 0 16px;font-family:'JetBrains Mono',monospace;display:flex;align-items:center;gap:10px;}
+.sec::after{content:'';flex:1;height:1px;background:var(--border);}
+.sec-h{font-size:10px;color:var(--dim);font-weight:400;letter-spacing:0;text-transform:none;margin-left:6px;}
+
+/* Contrast */
+.contrast{display:grid;grid-template-columns:1fr 48px 1fr;align-items:stretch;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:36px;}
+.c-side{padding:22px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;}
+.c-side.l{background:rgba(108,255,160,0.06);border-right:1px solid var(--border);}
+.c-side.r{background:rgba(255,108,138,0.06);}
+.c-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;}
+.c-label.pos{color:var(--green);}.c-label.neg{color:var(--red);}
+.c-val{font-size:14px;font-weight:700;line-height:1.5;}
+.c-sub{font-size:11px;color:var(--dim);}
+.c-vs{display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;color:var(--dim);background:var(--s2);}
+
+/* ============ VIS: DEGRADATION ============ */
+.deg-vis{margin:0 0 40px;position:relative;}
+.deg-path{position:absolute;left:50%;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--green) 0%,var(--orange) 35%,var(--red) 70%,#aa2244 100%);transform:translateX(-50%);opacity:0.25;}
+.deg-flow{display:flex;flex-direction:column;gap:0;position:relative;}
+.deg-step{position:relative;padding:20px 0;display:grid;grid-template-columns:1fr 60px 1fr;align-items:center;}
+.deg-step:nth-child(odd) .deg-card{grid-column:1;}.deg-step:nth-child(odd) .deg-empty{grid-column:3;}
+.deg-step:nth-child(even) .deg-card{grid-column:3;}.deg-step:nth-child(even) .deg-empty{grid-column:1;}
+.deg-dot{grid-column:2;width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;margin:0 auto;z-index:2;border:2px solid var(--border);background:var(--bg);transition:all 0.3s;}
+.deg-step:hover .deg-dot{transform:scale(1.15);border-color:currentColor;}
+.deg-card{padding:16px 20px;border-radius:10px;border:1px solid;transition:all 0.3s;cursor:default;}
+.deg-card:hover{transform:translateY(-2px);}
+.deg-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:4px;}
+.deg-text{font-size:13px;font-weight:600;line-height:1.5;}
+.deg-sub{font-size:11px;color:var(--dim);margin-top:4px;}
+.deg-empty{display:block;}
+.deg-conn{text-align:center;padding:4px 0;font-size:11px;color:var(--dim);font-family:'JetBrains Mono',monospace;position:relative;z-index:1;}
+.deg-step.s1 .deg-dot{color:var(--green);border-color:rgba(108,255,160,0.4);}
+.deg-step.s1 .deg-card{border-color:rgba(108,255,160,0.25);background:rgba(108,255,160,0.04);}
+.deg-step.s1 .deg-label{color:var(--green);}
+.deg-step.s2 .deg-dot{color:var(--orange);border-color:rgba(255,200,108,0.4);}
+.deg-step.s2 .deg-card{border-color:rgba(255,200,108,0.25);background:rgba(255,200,108,0.04);}
+.deg-step.s2 .deg-label{color:var(--orange);}
+.deg-step.s3 .deg-dot{color:var(--red);border-color:rgba(255,108,138,0.4);}
+.deg-step.s3 .deg-card{border-color:rgba(255,108,138,0.25);background:rgba(255,108,138,0.04);}
+.deg-step.s3 .deg-label{color:var(--red);}
+.deg-step.s4 .deg-dot{color:#aa2244;border-color:rgba(170,34,68,0.5);}
+.deg-step.s4 .deg-card{border-color:rgba(170,34,68,0.3);background:rgba(170,34,68,0.06);}
+.deg-step.s4 .deg-label{color:#dd4466;}
+
+/* ============ SENTENCES ============ */
+.sl{display:flex;flex-direction:column;gap:2px;margin-bottom:8px;}
+.sn{display:grid;grid-template-columns:36px 1fr;border-radius:8px;cursor:pointer;transition:all 0.25s;border:1px solid transparent;position:relative;overflow:hidden;}
+.sn:hover{background:var(--surface);border-color:var(--border);}
+.sn.active{border-color:var(--accent);background:var(--s2);}
+.sn.active .sb{opacity:1;}.sn.dimmed{opacity:0.18;pointer-events:none;}
+.sb{width:3px;position:absolute;left:0;top:0;bottom:0;border-radius:8px 0 0 8px;opacity:0.35;transition:opacity 0.25s;}
+.sb.premise{background:var(--green);}.sb.drive{background:var(--orange);}.sb.result{background:var(--red);}
+.s-n{display:flex;align-items:flex-start;justify-content:center;padding:12px 0 12px 10px;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--dim);}
+.s-b{padding:10px 14px 10px 6px;}
+.s-e{font-size:13px;line-height:1.75;color:var(--text);transition:color 0.2s;}
+.sn.active .s-e{color:var(--bright);}
+.s-r{display:none;margin-top:6px;padding:7px 11px;border-radius:6px;font-size:12px;line-height:1.6;font-weight:500;}
+.sn.active .s-r{display:block;}
+.s-r.premise{background:rgba(108,255,160,0.1);color:var(--green);}
+.s-r.drive{background:rgba(255,200,108,0.1);color:var(--orange);}
+.s-r.result{background:rgba(255,108,138,0.1);color:var(--red);}
+.leg{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px;}
+.lg{display:flex;align-items:center;gap:5px;font-size:11px;font-family:'JetBrains Mono',monospace;font-weight:600;padding:4px 10px;border-radius:6px;cursor:pointer;transition:all 0.2s;border:1px solid transparent;user-select:none;}
+.lg:hover{border-color:var(--border);}.lg.on{border-color:currentColor;}
+.lg .dd{width:8px;height:8px;border-radius:50%;}
+.lg.premise{color:var(--green);}.lg.premise .dd{background:var(--green);}
+.lg.drive{color:var(--orange);}.lg.drive .dd{background:var(--orange);}
+.lg.result{color:var(--red);}.lg.result .dd{background:var(--red);}
+
+/* ============ ABSTRACT ============ */
+.abs-list{display:flex;flex-direction:column;gap:8px;margin-bottom:8px;}
+.abs-item{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:8px;align-items:baseline;font-size:13px;transition:border-color 0.2s;}
+.abs-item:hover{border-color:var(--cyan);}
+.abs-expr{font-weight:700;color:var(--cyan);font-family:'JetBrains Mono',monospace;font-size:12px;white-space:nowrap;}
+.abs-dir{color:var(--text);line-height:1.5;}
+.abs-dir .arrow{color:var(--cyan);font-weight:700;margin:0 4px;}
+
+/* ============ INSIGHTS ============ */
+.ins{padding:18px 22px;border-radius:10px;margin-bottom:12px;border:1px solid;}
+.ins.warn{border-color:rgba(255,108,138,0.25);background:rgba(255,108,138,0.05);}
+.ins.deep{border-color:rgba(108,138,255,0.25);background:rgba(108,138,255,0.05);}
+.it{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;font-family:'JetBrains Mono',monospace;margin-bottom:6px;}
+.it.warn{color:var(--red);}.it.deep{color:var(--accent);}
+.i-t{font-size:15px;font-weight:700;margin-bottom:8px;}
+.i-b{font-size:13px;color:var(--dim);line-height:1.7;}
+.i-b strong{color:var(--text);font-weight:600;}
+.i-b em{color:var(--red);font-style:normal;font-weight:600;}
+
+/* ============ TABLES ============ */
+.gt{width:100%;border-collapse:collapse;font-size:13px;margin-bottom:12px;}
+.gt th{text-align:left;padding:10px 14px;background:var(--s2);border-bottom:2px solid var(--accent);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);font-family:'JetBrains Mono',monospace;}
+.gt td{padding:10px 14px;border-bottom:1px solid var(--border);vertical-align:top;}
+.gt tr:hover td{background:var(--s2);}
+.gt .ref{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent);font-weight:600;}
+.gt .pt{font-weight:600;color:var(--bright);}.gt .trap{color:var(--red);font-weight:600;}
+.vt{width:100%;border-collapse:collapse;font-size:13px;}
+.vt th{text-align:left;padding:10px 14px;background:var(--s2);border-bottom:2px solid var(--green);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--green);font-family:'JetBrains Mono',monospace;}
+.vt td{padding:10px 14px;border-bottom:1px solid var(--border);}
+.vt tr:hover td{background:var(--s2);}
+
+@media(max-width:640px){.nav{padding:12px 16px;}.ct{padding:24px 16px 60px;}.contrast{grid-template-columns:1fr;}.c-side.l{border-right:none;border-bottom:1px solid var(--border);}.c-vs{padding:8px;}.deg-step{grid-template-columns:1fr 40px 1fr;padding:14px 0;}.sn{grid-template-columns:30px 1fr;}}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="q20.html">← 20번</a>
+  <span class="nav-c">21번 · 음악과 진보 강박</span>
+  <a href="index.html">목록 →</a>
+</nav>
+
+<div class="ct">
+
+<div class="qh">
+  <div class="qb">21</div>
+  <div><div class="qt">음악과 진보 강박</div><div class="qs">주장 · 비판적 톤 · 하강 구조</div></div>
+</div>
+
+<div class="sum">
+  <div class="sum-l">1문장 요지</div>
+  <div class="sum-t">새로움에 대한 현대적 집착이 음악을 기술적 진보의 경쟁으로 변질시켜, 음악가를 '연구자'로 전락시킨다.</div>
+</div>
+
+<!-- CONTRAST -->
+<div class="sec">핵심 대조축</div>
+<div class="contrast">
+  <div class="c-side l"><div class="c-label pos">본래의 음악가</div><div class="c-val">innovator (혁신가)</div><div class="c-sub">예술적 창의</div></div>
+  <div class="c-vs">VS</div>
+  <div class="c-side r"><div class="c-label neg">현대가 강요하는 역할</div><div class="c-val">inventor / researcher</div><div class="c-sub">기술적 진보 경쟁</div></div>
+</div>
+
+<!-- VIS: DEGRADATION -->
+<div class="sec">논증 흐름 — 음악의 변질 과정</div>
+<div class="deg-vis">
+  <div class="deg-path"></div>
+  <div class="deg-flow">
+    <div class="deg-step s1"><div class="deg-card"><div class="deg-label">01 · 출발점</div><div class="deg-text">음악가 = innovator (혁신가)</div><div class="deg-sub">발명가가 아니어도 혁신은 가능</div></div><div class="deg-dot">🎵</div><div class="deg-empty"></div></div>
+    <div class="deg-conn">▼ 그런데 현대는...</div>
+    <div class="deg-step s2"><div class="deg-empty"></div><div class="deg-dot">⚙️</div><div class="deg-card"><div class="deg-label">03 · 변질의 원인</div><div class="deg-text">새로움 강박 → 음악 = "사물" = 기교에 불과</div><div class="deg-sub">"technique, technique alone"</div></div></div>
+    <div class="deg-conn">▼ 자동차처럼 매년 업그레이드...</div>
+    <div class="deg-step s3"><div class="deg-card"><div class="deg-label">04~05 · 강제된 법칙</div><div class="deg-text">"끝없는 진보가 음악의 법칙이 될 것"</div><div class="deg-sub">Farther, faster, more powerful!</div></div><div class="deg-dot">🏭</div><div class="deg-empty"></div></div>
+    <div class="deg-conn">▼ 결국...</div>
+    <div class="deg-step s4"><div class="deg-empty"></div><div class="deg-dot">⚔️</div><div class="deg-card"><div class="deg-label">06~07 · 최종 변질</div><div class="deg-text">음악 = 군비경쟁 (arms race)<br>음악가 = "연구자"</div><div class="deg-sub">전임자를 "구식"으로 몰아내며 특허를 주장</div></div></div>
+  </div>
+</div>
+
+<!-- SENTENCES -->
+<div class="sec">문장별 분석 <span class="sec-h">클릭 → 논증 역할</span></div>
+<div class="leg">
+  <div class="lg premise" onclick="filt('premise')"><span class="dd"></span>전제</div>
+  <div class="lg drive" onclick="filt('drive')"><span class="dd"></span>변질 동력</div>
+  <div class="lg result" onclick="filt('result')"><span class="dd"></span>결과/비판</div>
+</div>
+<div class="sl">
+  <div class="sn" data-r="premise" onclick="tog(this)"><div class="sb premise"></div><div class="s-n">01</div><div class="s-b"><div class="s-e">A brilliant musician can in fact be an innovator without strictly speaking being an inventor.</div><div class="s-r premise"><strong>대조축 선언.</strong> innovator ≠ inventor. 이 구분이 글 전체의 뼈대.</div></div></div>
+  <div class="sn" data-r="premise" onclick="tog(this)"><div class="sb premise"></div><div class="s-n">02</div><div class="s-b"><div class="s-e">In such cases, those who expect "great discoveries" will be disappointed.</div><div class="s-r premise"><strong>부연.</strong> "위대한 발견"을 기대하는 사람들 = inventor를 요구하는 측. 비판 대상 예고.</div></div></div>
+  <div class="sn" data-r="drive" onclick="tog(this)"><div class="sb drive"></div><div class="s-n">03</div><div class="s-b"><div class="s-e">Let there be no doubt: the eager need for novelty, so characteristic of the escalating modernist auction, involves the idea that a musical act is a thing, in which case, music is no more than technique, technique alone.</div><div class="s-r drive"><strong>변질의 핵심 인과.</strong> 새로움 강박 → 음악을 "사물"로 환원 → 기교에 불과. 글의 논증 엔진.</div></div></div>
+  <div class="sn" data-r="drive" onclick="tog(this)"><div class="sb drive"></div><div class="s-n">04</div><div class="s-b"><div class="s-e">And just as technique is the consequence of an indefinite process of perfection — with each automobile or kitchen appliance show introducing what is new and improved in comparison to last year's — so never-ending progress shall be the law of music.</div><div class="s-r drive"><strong>비유로 원인 강화.</strong> 자동차/가전 = 매년 개선. just as A, so B 구조로 음악에 적용.</div></div></div>
+  <div class="sn" data-r="drive" onclick="tog(this)"><div class="sb drive"></div><div class="s-n">05</div><div class="s-b"><div class="s-e">Farther, faster, more powerful!</div><div class="s-r drive"><strong>수사적 강조.</strong> 세 단어로 진보 강박의 맹목성 압축. 비판적 톤 극대화.</div></div></div>
+  <div class="sn" data-r="result" onclick="tog(this)"><div class="sb result"></div><div class="s-n">06</div><div class="s-b"><div class="s-e">In this arms race, each new music, breaking its predecessor's records, offers itself as the last thing in modernity; and each musician, forcing predecessors into the category of the unfashionable and outmoded, claims the patent on the invention.</div><div class="s-r result"><strong>결과 — 군비경쟁.</strong> "arms race", "patent" — 음악이 전쟁·특허의 언어로 묘사됨. 비판의 정점.</div></div></div>
+  <div class="sn" data-r="result" onclick="tog(this)"><div class="sb result"></div><div class="s-n">07</div><div class="s-b"><div class="s-e">In an era where pastiches of "scientific investigation" have become quasi-universal, musicians owe it to themselves to become "researchers" just like everyone else.</div><div class="s-r result"><strong>결론 — 풍자적 착지.</strong> "pastiches", 따옴표 안의 "researchers" — 전부 비꼬는 표현.</div></div></div>
+</div>
+
+<!-- ABSTRACT EXPRESSIONS -->
+<div class="sec">추상적 표현 방향성</div>
+<div class="abs-list">
+  <div class="abs-item"><div class="abs-expr">novelty</div><div class="abs-dir">"새로움/참신함"<span class="arrow">→</span>이 글에서는 긍정이 아닌 <strong>강박·병폐</strong>의 원인으로 쓰임. 방향 주의.</div></div>
+  <div class="abs-item"><div class="abs-expr">escalating modernist auction</div><div class="abs-dir">"점점 고조되는 현대주의적 경매"<span class="arrow">→</span>예술이 경쟁적 입찰처럼 변질됐다는 비유. 부정적 방향.</div></div>
+  <div class="abs-item"><div class="abs-expr">a musical act is a thing</div><div class="abs-dir">음악적 행위를 "사물"로 환원<span class="arrow">→</span>예술성을 제거하고 물건처럼 취급. 변질의 핵심 논리.</div></div>
+  <div class="abs-item"><div class="abs-expr">never-ending progress</div><div class="abs-dir">"끝없는 진보"<span class="arrow">→</span>긍정처럼 보이지만 이 글에서는 <strong>음악에 강제된 부적절한 법칙</strong>. 반어적.</div></div>
+  <div class="abs-item"><div class="abs-expr">arms race</div><div class="abs-dir">"군비 경쟁"<span class="arrow">→</span>음악 간의 경쟁을 군사 용어로 비유. 극도로 부정적.</div></div>
+  <div class="abs-item"><div class="abs-expr">claims the patent</div><div class="abs-dir">"특허를 주장하다"<span class="arrow">→</span>예술적 창작을 산업적 특허로 비유. 음악이 발명품 취급 받는 상황.</div></div>
+  <div class="abs-item"><div class="abs-expr">pastiches of "scientific investigation"</div><div class="abs-dir">"과학적 연구의 모방작"<span class="arrow">→</span>진짜 과학이 아닌 흉내. pastiche = 부정적 뉘앙스의 모방.</div></div>
+  <div class="abs-item"><div class="abs-expr">"researchers" (따옴표)</div><div class="abs-dir">따옴표 = <strong>거리두기(scare quotes)</strong>. 필자가 동의하지 않는 표현임을 표시. 진짜 연구자가 아님.</div></div>
+</div>
+
+<!-- INSIGHTS -->
+<div class="sec">놓치기 쉬운 포인트</div>
+<div class="ins warn">
+  <div class="it warn">⚠ 톤 오독</div>
+  <div class="i-t">이 글은 진보를 "비판"하고 있다 — 중립이 아님</div>
+  <div class="i-b">"arms race", "patent", "pastiches", 따옴표 "researchers" — 전부 <strong>풍자적·부정적</strong>. 선지가 <em>"음악의 기술적 발전이 필요하다"</em>처럼 중립/긍정으로 재포장하면 톤 불일치로 즉시 소거.</div>
+</div>
+<div class="ins deep">
+  <div class="it deep">✦ 따옴표의 기능</div>
+  <div class="i-t">07의 "researchers"와 02의 "great discoveries"는 필자의 거리두기</div>
+  <div class="i-b">이 글의 따옴표는 <strong>scare quotes</strong>. 필자가 동의하지 않는 표현에 씌움. 내신에서 <em>"필자가 음악가의 연구자적 태도를 긍정한다"</em>는 따옴표가 그 반증. <strong>따옴표 안의 표현을 액면 그대로 받아들이면 방향이 뒤집힘.</strong></div>
+</div>
+<div class="ins deep">
+  <div class="it deep">✦ "never-ending progress"의 반어성</div>
+  <div class="i-t">"끝없는 진보"가 긍정처럼 보이지만 이 글에서는 비판 대상</div>
+  <div class="i-b">"progress"라는 단어 자체가 긍정적이라 선지에서 <em>"음악의 지속적 발전을 장려"</em>로 쓰이면 끌릴 수 있음. 하지만 이 글에서 progress는 <strong>"shall be the law"라는 강제적 표현과 결합</strong>되어 부정적 의미. "법칙이 되어야 한다"는 당위가 아니라 비판.</div>
+</div>
+
+<!-- GRAMMAR -->
+<div class="sec">어법 포인트</div>
+<table class="gt">
+  <tr><th>문장</th><th>포인트</th><th>함정</th><th>판단</th></tr>
+  <tr><td class="ref">03</td><td class="pt">so <u>characteristic</u> of</td><td class="trap">→ characteristically</td><td>형용사가 명사 need 후치수식. 부사 불가.</td></tr>
+  <tr><td class="ref">04</td><td class="pt"><u>what</u> is new and improved</td><td class="trap">→ that / which</td><td>선행사 없는 명사절. what만 가능.</td></tr>
+  <tr><td class="ref">06</td><td class="pt"><u>breaking</u> / <u>forcing</u></td><td class="trap">→ broken / forced</td><td>주어가 능동 행위. 수동 불가.</td></tr>
+  <tr><td class="ref">07</td><td class="pt">era <u>where</u></td><td class="trap">→ which</td><td>관계부사 = in which. which 단독 불가.</td></tr>
+  <tr><td class="ref">07</td><td class="pt">owe <u>it</u> to themselves</td><td class="trap">it 삭제</td><td>가목적어 구문. it 필수.</td></tr>
+</table>
+
+<!-- VOCAB -->
+<div class="sec">핵심 어휘</div>
+<table class="vt">
+  <tr><th>단어</th><th>의미</th><th>동의어</th><th>혼동</th></tr>
+  <tr><td><strong>novelty</strong></td><td>참신함</td><td>innovation, originality</td><td>≠ nobility(고귀함)</td></tr>
+  <tr><td><strong>indefinite</strong></td><td>무기한의</td><td>vague, uncertain</td><td>≠ infinite(무한한)</td></tr>
+  <tr><td><strong>predecessor</strong></td><td>전임자</td><td>forerunner</td><td>↔ successor</td></tr>
+  <tr><td><strong>outmoded</strong></td><td>구식인</td><td>outdated, obsolete</td><td>≠ outmoding(X)</td></tr>
+  <tr><td><strong>pastiche</strong></td><td>모방작</td><td>imitation</td><td>부정적 뉘앙스</td></tr>
+  <tr><td><strong>patent</strong></td><td>특허</td><td>—</td><td>≠ potent(강력한)</td></tr>
+</table>
+
+</div>
+<script>
+function tog(el){const on=el.classList.contains('active');document.querySelectorAll('.sn').forEach(s=>s.classList.remove('active'));if(!on)el.classList.add('active');}
+let af=null;function filt(r){const ls=document.querySelectorAll('.lg'),ss=document.querySelectorAll('.sn');if(af===r){af=null;ls.forEach(l=>l.classList.remove('on'));ss.forEach(s=>s.classList.remove('dimmed'));return;}af=r;ls.forEach(l=>l.classList.toggle('on',l.classList.contains(r)));ss.forEach(s=>{s.dataset.r===r?s.classList.remove('dimmed'):s.classList.add('dimmed');});}
+</script>
+</body>
+</html>
