@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 3월 모의고사 분석</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--surface:#12121a;--surface2:#1a1a26;--border:#2a2a3a;--text:#e8e8f0;--text-dim:#8888a0;--accent:#6c8aff;--red:#ff6c8a;--green:#6cffa0;--orange:#ffc86c;--purple:#c086ff;}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.7;}
+.header{padding:60px 40px 40px;text-align:center;position:relative;overflow:hidden;}
+.header::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at 30% 50%,rgba(108,138,255,0.08) 0%,transparent 50%),radial-gradient(ellipse at 70% 50%,rgba(255,108,138,0.06) 0%,transparent 50%);animation:drift 20s ease-in-out infinite;}
+@keyframes drift{0%,100%{transform:translate(0,0);}50%{transform:translate(-2%,1%);}}
+.header-content{position:relative;z-index:1;}
+.badge{display:inline-block;padding:6px 18px;border:1px solid var(--accent);border-radius:20px;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--accent);margin-bottom:20px;font-family:'JetBrains Mono',monospace;}
+.header h1{font-size:clamp(28px,5vw,48px);font-weight:900;letter-spacing:-1px;margin-bottom:12px;background:linear-gradient(135deg,#6c8aff,#a06cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.header .subtitle{font-size:16px;color:var(--text-dim);font-weight:300;}
+.progress-section{padding:0 40px;max-width:900px;margin:0 auto 40px;}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px;}
+.stat-box{padding:20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-align:center;}
+.stat-num{font-size:28px;font-weight:900;font-family:'JetBrains Mono',monospace;background:linear-gradient(135deg,#6c8aff,#a06cff);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-label{font-size:11px;color:var(--text-dim);margin-top:4px;}
+.progress-bar-bg{height:4px;background:var(--surface2);border-radius:2px;overflow:hidden;}
+.progress-bar-fill{height:100%;width:7%;background:linear-gradient(135deg,#6c8aff,#a06cff);border-radius:2px;}
+.progress-label{display:flex;justify-content:space-between;margin-top:8px;font-size:12px;color:var(--text-dim);font-family:'JetBrains Mono',monospace;}
+.grid{max-width:900px;margin:0 auto;padding:0 40px 60px;display:flex;flex-direction:column;gap:8px;}
+.section-label{font-size:11px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--text-dim);padding:30px 0 10px;font-family:'JetBrains Mono',monospace;}
+.card{display:flex;align-items:center;gap:16px;padding:16px 20px;background:var(--surface);border:1px solid var(--border);border-radius:12px;text-decoration:none;color:var(--text);transition:all 0.3s;position:relative;overflow:hidden;}
+.card:hover{border-color:var(--accent);background:var(--surface2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(108,138,255,0.1);}
+.card::after{content:'→';position:absolute;right:20px;font-size:16px;color:var(--text-dim);transition:all 0.3s;}
+.card:hover::after{color:var(--accent);transform:translateX(4px);}
+.card-num{flex-shrink:0;width:44px;height:44px;display:flex;align-items:center;justify-content:center;border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:600;color:#fff;}
+.card-num.c1{background:linear-gradient(135deg,#6c8aff,#a06cff);}
+.card-num.c2{background:linear-gradient(135deg,#ff6c8a,#ff8a6c);}
+.card-num.c3{background:linear-gradient(135deg,#6cffa0,#6cffda);color:#0a0a0f;}
+.card-num.c4{background:linear-gradient(135deg,#ffc86c,#ffaa6c);color:#0a0a0f;}
+.card-num.c5{background:linear-gradient(135deg,#c086ff,#8a6cff);}
+.card-info{flex:1;padding-right:30px;}
+.card-title{font-size:14px;font-weight:700;margin-bottom:2px;}
+.card-desc{font-size:11px;color:var(--text-dim);line-height:1.4;}
+.card.disabled{opacity:0.3;pointer-events:none;}
+.card.disabled::after{content:'🔒';}
+.footer{text-align:center;padding:40px;font-size:12px;color:var(--text-dim);border-top:1px solid var(--border);}
+@media(max-width:640px){.header{padding:40px 20px 30px;}.grid,.progress-section{padding-left:20px;padding-right:20px;}.stats-row{grid-template-columns:1fr;}.card{padding:14px 16px;gap:12px;}.card-num{width:38px;height:38px;font-size:13px;}}
+</style>
+</head>
+<body>
+<div class="header"><div class="header-content">
+  <div class="badge">Mock Exam Analysis</div>
+  <h1>2026 고3 3월 모의고사</h1>
+  <p class="subtitle">독해 지문 분석 · 내신 변형 대비</p>
+</div></div>
+<div class="progress-section">
+  <div class="stats-row">
+    <div class="stat-box"><div class="stat-num">28</div><div class="stat-label">전체 독해 문항</div></div>
+    <div class="stat-box"><div class="stat-num">2</div><div class="stat-label">분석 완료</div></div>
+    <div class="stat-box"><div class="stat-num">7%</div><div class="stat-label">진행률</div></div>
+  </div>
+  <div class="progress-bar-bg"><div class="progress-bar-fill"></div></div>
+  <div class="progress-label"><span>18번</span><span>45번</span></div>
+</div>
+<div class="grid">
+  <div class="section-label">✦ 분석 완료</div>
+  <a class="card" href="q20.html"><div class="card-num c1">20</div><div class="card-info"><div class="card-title">과학의 문화적 토대</div><div class="card-desc">양보-반박 · 궁술 비유 · 부정→긍정 2단 도약</div></div></a>
+  <a class="card" href="q21.html"><div class="card-num c2">21</div><div class="card-info"><div class="card-title">음악과 진보 강박</div><div class="card-desc">innovator vs inventor · 비판적 톤 · 군비경쟁 비유</div></div></a>
+  <div class="section-label">✦ 대기중</div>
+  <div class="card disabled"><div class="card-num c3">22</div><div class="card-info"><div class="card-title">대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c4">23</div><div class="card-info"><div class="card-title">대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c5">24</div><div class="card-info"><div class="card-title">대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c1">25</div><div class="card-info"><div class="card-title">대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c2">26</div><div class="card-info"><div class="card-title">대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c3">28</div><div class="card-info"><div class="card-title">어법 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c4">29</div><div class="card-info"><div class="card-title">어휘 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c5">30</div><div class="card-info"><div class="card-title">빈칸 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c1">31</div><div class="card-info"><div class="card-title">빈칸 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c2">32</div><div class="card-info"><div class="card-title">빈칸 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c3">33</div><div class="card-info"><div class="card-title">빈칸(문장) — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c4">34</div><div class="card-info"><div class="card-title">빈칸(문장) — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c5">35</div><div class="card-info"><div class="card-title">무관 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c1">36</div><div class="card-info"><div class="card-title">순서 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c2">37</div><div class="card-info"><div class="card-title">순서 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c3">38</div><div class="card-info"><div class="card-title">삽입 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c4">39</div><div class="card-info"><div class="card-title">삽입 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c5">40</div><div class="card-info"><div class="card-title">요약 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c1">41</div><div class="card-info"><div class="card-title">장문 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c2">42</div><div class="card-info"><div class="card-title">장문 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c3">43</div><div class="card-info"><div class="card-title">장문 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c4">44</div><div class="card-info"><div class="card-title">장문 — 대기중</div></div></div>
+  <div class="card disabled"><div class="card-num c5">45</div><div class="card-info"><div class="card-title">장문 — 대기중</div></div></div>
+</div>
+<div class="footer">2026 3월 모의고사 분석</div>
+</body>
+</html>
